@@ -6,10 +6,14 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+# TODO: destroy by hand (rails db:drop)
+# Product.destroy_all
+# User.destroy_all
 
-Product.destroy_all
+will = User.create!(email: 'contact@vigiefood.org', password: 'testtest')
+max = User.create!(email: 'vigiefood@yahoo.fr', password: 'testtest')
 
-Product.create!(name: "Kudoz", url: "http://getkudoz.com", tagline: "Tinder for job search")
-Product.create!(name: "uSlide", url: "http://uslide.io", tagline: "Youtube sucks for education")
-Product.create!(name: "Vigiefood", url: "http://vigiefood.org", tagline: "Goûtez la confiance")
+Product.create!(user: max, name: "Kudoz", url: "http://getkudoz.com", tagline: "Tinder for job search", category: "tech")
+Product.create!(user: max, name: "uSlide", url: "http://uslide.io", tagline: "Youtube sucks for education", category: "design")
+Product.create!(user: will, name: "Vigiefood", url: "http://vigiefood.org", tagline: "Goûtez la confiance", category: "education")
 
