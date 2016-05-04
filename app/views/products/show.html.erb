@@ -1,5 +1,5 @@
 <div class="banner" style="background-image: linear-gradient(-225deg, rgba(0,101,168,0.6) 0%, rgba(0,36,61,0.6) 50%),
-url('<%= image_path "background.jpg" %>');">
+url('<%= @product.photo? ? cloudinary_url(@product.photo.path, width: 1280) : image_path("background.jpg") %>');">
   <div class="banner-content">
     <h1>
       <%= @product.name %>
@@ -14,6 +14,10 @@ url('<%= image_path "background.jpg" %>');">
     <p>
       Posted by <%= @product.user.email %>
     </p>
+  <% end %>
+
+    <% if @product.photo? %>
+    <%= cloudinary_url @product.photo.path, width: 200 %>
   <% end %>
 
 
