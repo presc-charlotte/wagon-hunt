@@ -1,89 +1,47 @@
 <div class="container">
-
-<div class="row">
-  <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
       <h1 class="text-center">All products</h1>
       <% @products.each do |product| %>
 
-          <div class="product">
+        <div class="product">
 
-          <% if user_signed_in? %>
-
-          <%# upvote action %>
-            <% if current_user.voted_for?(product) %>
-              <%= link_to upvote_path(current_user.upvotes.where(product: product).first), method: :delete, class: 'product-upvote product-upvoted' do %>
-                <div class="product-arrow"></div>
-                <div class='product-count'>
-                  <%= product.upvotes.size %>
-                </div>
-              <% end %>
-
-          <% else %>
-          <%#Vote%>
-            <%= link_to upvotes_path(product_id: product.id), method: :post, class: 'product-upvote' do %>
-                <div class="product-arrow"></div>
-                <div class='product-count'>
-                <%= product.upvotes.size %>
-              </div>
-            <% end %>
-          <% end %>
-
-
-          <% else %>
-              <div class='product-upvote'>
-                <div class="product-arrow"></div>
-                <div class='product-count'>
-                <%= product.upvotes.size %>
-
-              </div>
-            </div>
-          <% end %>
-
-            <% if product.photo?  %>
-              <%= cl_image_tag(product.photo.path, height: 117, width: 175, crop: :fill, class: 'product-image') %>
-            <% else %>
-              <img src="http://unsplash.it/300/200" alt="kudoz" class="product-image hidden-xs">
-            <% end %>
-
-            <div class='product-body'>
-              <h3><%= product.name %></h3>
-              <p><%= product.tagline %></p>
-            </div>
-            <ul class="list-inline product-controls hidden-sm hidden-xs">
-              <li>
-                <%= link_to product_path(product) do %>
-                  <i class="fa fa-eye"></i>
-                <% end %>
-              </li>
-
-              <li>
-                <%= link_to edit_product_path(product) do %>
-                  <i class="fa fa-pencil"></i>
-                <% end %>
-              </li>
-
-              <li>
-                  <%= link_to product_path(product), method: :delete do %>
-                    <i class="fa fa-trash"></i>
-                  <% end %>
-                </li>
-
-
-
-
-
-            </ul>
+          <div class="upvote-container" id="product-<%= product.id %>">
+            <%= render 'upvotes/show', product: product %>
           </div>
 
+          <% if product.photo? %>
+            <%= cl_image_tag(product.photo.path, height: 117, width: 175, crop: :fill, class: 'product-image') %>
+          <% else %>
+            <img src="http://unsplash.it/300/200" alt="kudoz" class="product-image">
+          <% end %>
+          <div class='product-body'>
+            <h3><%= product.name %></h3>
+            <p><%= product.tagline %></p>
+          </div>
+          <ul class="list-inline product-controls">
+            <li>
+              <%= link_to product_path(product) do %>
+                <i class="fa fa-eye"></i>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to edit_product_path(product) do %>
+                <i class="fa fa-pencil"></i>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to product_path(product), method: :delete do %>
+                <i class="fa fa-trash"></i>
+              <% end %>
+            </li>
+          </ul>
+        </div>
 
-
-
-         <% end %>
-
-
+      <% end %>
+    </div>
   </div>
 </div>
-
 
 
 
